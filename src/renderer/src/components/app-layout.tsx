@@ -1,5 +1,5 @@
 import { cn } from '@renderer/utils'
-import React, { ComponentProps, forwardRef } from 'react'
+import { ComponentProps, forwardRef } from 'react'
 
 export const RootLayout = ({ className, children, ...props }: ComponentProps<'div'>) => {
   return (

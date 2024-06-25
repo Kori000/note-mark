@@ -1,7 +1,7 @@
 import { getNotes } from '@/lib'
 import { electronApp, is, optimizer } from '@electron-toolkit/utils'
 import { BrowserWindow, app, ipcMain, shell } from 'electron'
-import { join } from 'path'
+import path, { join } from 'path'
 import icon from '../../resources/icon.png?asset'
 import { initializeIpcHandlers } from './ipc-handler'
 function createWindow(): void {
@@ -11,12 +11,18 @@ function createWindow(): void {
     height: 670,
     show: false,
     autoHideMenuBar: true,
-    ...(process.platform === 'linux' ? { icon } : {}),
+    ...(process.platform === 'linux'
+      ? { icon }
+      : {
+          icon,
+        }),
+    icon: icon,
     center: true,
     title: 'NoteMark',
     frame: false,
-    vibrancy: 'under-window', // MacOS
-    visualEffectState: 'active', // MacOS
+    vibrancy: 'under-window', // 毛玻璃 MacOS
+    visualEffectState: 'active', //毛玻璃 MacOS
+    backgroundMaterial: 'acrylic', // 毛玻璃 on Windows 11
     titleBarStyle: 'hidden',
     trafficLightPosition: { x: 15, y: 10 }, // MacOS
     webPreferences: {
@@ -49,6 +55,9 @@ function createWindow(): void {
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 app.whenReady().then(() => {
+  if (process.platform === 'darwin') {
+    app.dock.setIcon(icon)
+  }
   // Set app user model id for windows
   electronApp.setAppUserModelId('com.electron')
 

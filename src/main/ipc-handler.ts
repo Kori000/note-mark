@@ -1,5 +1,5 @@
-import { getNotes, readNote } from '@/lib'
-import { GetNotes, ReadNote } from '@shared/types'
+import { createNote, deleteNote, getNotes, readNote, writeNote } from '@/lib'
+import { CreateNote, DeleteNote, GetNotes, ReadNote, WriteNote } from '@shared/types'
 import { ipcMain } from 'electron'
 
 export function initializeIpcHandlers(): void {
@@ -7,4 +7,10 @@ export function initializeIpcHandlers(): void {
   ipcMain.handle('getNotes', (_, ...args: Parameters<GetNotes>) => getNotes(...args))
 
   ipcMain.handle('readNote', (_, ...args: Parameters<ReadNote>) => readNote(...args))
+
+  ipcMain.handle('writeNote', (_, ...args: Parameters<WriteNote>) => writeNote(...args))
+
+  ipcMain.handle('createNote', (_, ...args: Parameters<CreateNote>) => createNote(...args))
+
+  ipcMain.handle('deleteNote', (_, ...args: Parameters<DeleteNote>) => deleteNote(...args))
 }
