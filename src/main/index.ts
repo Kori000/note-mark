@@ -16,10 +16,10 @@ function createWindow(): void {
     center: true,
     title: 'NoteMark',
     frame: false,
-    vibrancy: 'under-window',
-    visualEffectState: 'active',
+    vibrancy: 'under-window', // MacOS
+    visualEffectState: 'active', // MacOS
     titleBarStyle: 'hidden',
-    trafficLightPosition: { x: 15, y: 10 },
+    trafficLightPosition: { x: 15, y: 10 }, // MacOS
     webPreferences: {
       preload: join(__dirname, '../preload/index.js'),
       sandbox: true,
@@ -31,6 +31,7 @@ function createWindow(): void {
     mainWindow.show()
   })
 
+  // 这段代码的目的是在用户点击一个链接（通常是 <a> 标签）或通过 window.open 方法尝试打开一个新窗口时，使用默认浏览器打开该 URL，而不是在应用内打开一个新窗口。
   mainWindow.webContents.setWindowOpenHandler(details => {
     shell.openExternal(details.url)
     return { action: 'deny' }
@@ -59,9 +60,11 @@ app.whenReady().then(() => {
     optimizer.watchWindowShortcuts(window)
   })
 
+  // 用于处理异步请求并返回一个结果, 返回一个 Promise
   ipcMain.handle('getNotes', (_, ...args: Parameters<GetNotes>) => getNotes(...args))
 
   // IPC test
+  // 用于处理异步或同步事件，但不需要返回结果给渲染进程。
   ipcMain.on('ping', () => console.log('pong'))
 
   createWindow()

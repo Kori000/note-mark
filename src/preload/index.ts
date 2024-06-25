@@ -1,5 +1,4 @@
 import { contextBridge, ipcRenderer } from 'electron'
-import { electronAPI } from '@electron-toolkit/preload'
 import { GetNotes } from '@shared/types'
 
 if (!process.contextIsolated) {
