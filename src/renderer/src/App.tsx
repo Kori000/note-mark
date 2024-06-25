@@ -21,9 +21,9 @@ const App = () => {
     <>
       <DraggableTopBar />
       <RootLayout className="bg-zinc-900/30 ">
-        <Sidebar className="p-2  ">
-          <ActionButtonsRow className="flex justify-between mt-1 " />
-          <NotePreviewList className="mt-3 space-y-1" onSelect={resetScroll} />
+        <Sidebar className="p-2 relative flex flex-col  ">
+          <ActionButtonsRow className="flex justify-between w-full pr-3  " />
+          <NotePreviewList className="mt-2 pr-1 space-y-1 h-full overflow-y-scroll " onSelect={resetScroll} />
         </Sidebar>
         <Content ref={contentContainerRef} className="border-l bg-zinc-900/50 border-l-white/20  ">
           <FloatingNoteTitle className="pt-2 " />
