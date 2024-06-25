@@ -3,8 +3,7 @@ import { electronApp, is, optimizer } from '@electron-toolkit/utils'
 import { BrowserWindow, app, ipcMain, shell } from 'electron'
 import { join } from 'path'
 import icon from '../../resources/icon.png?asset'
-import { GetNotes } from '@shared/types'
-
+import { initializeIpcHandlers } from './ipc-handler'
 function createWindow(): void {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
@@ -60,8 +59,7 @@ app.whenReady().then(() => {
     optimizer.watchWindowShortcuts(window)
   })
 
-  // 用于处理异步请求并返回一个结果, 返回一个 Promise
-  ipcMain.handle('getNotes', (_, ...args: Parameters<GetNotes>) => getNotes(...args))
+  initializeIpcHandlers()
 
   // IPC test
   // 用于处理异步或同步事件，但不需要返回结果给渲染进程。
